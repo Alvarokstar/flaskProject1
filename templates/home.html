@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Main Page</h1>
+
+    <p>¡Register here!</p>
+    <a href="{{ url_for('register') }}">Register here: </a>
+
+    {% if logged_in %}
+        <h1>Welcome {{ username }}</h1>
+        <p>You login</p>
+        <a href="{{ url_for('logout_function') }}">Close session</a>
+    {% else %}
+        <h2>Welcome, Anonym user</h2>
+        <p>If you have an account, do <a href="{{ url_for('login') }}">login</a> </p>
+    {% endif %}
+</body>
+</html>
