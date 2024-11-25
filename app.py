@@ -10,7 +10,6 @@ users = [{
     "films": []
 
 }
-
 ]
 
 @app.route('/')
