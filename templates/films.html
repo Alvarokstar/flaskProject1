@@ -12,8 +12,8 @@
         <div class="text-end mb-3">
             <a href="{{ url_for('add_films') }}" class="btn btn-success">Add New Film</a>
         </div>
-        {% for category, title in categories.items() %}
-            <h2 class="text-primary">{{ title }}</h2>
+        {% for category, name in categories.items() %}
+            <h2 class="text-primary">{{ name }}</h2>
             <ul class="list-group mb-4">
                 {% for film in films[category] %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
