@@ -5,9 +5,9 @@ app = Flask(__name__)
 app.secret_key = "hola"
 
 users = [{
-    "username: Alvaro",
-    "password: 123",
-    "films: ",
+    "username": "Alvaro",
+    "password": "123",
+    "films": []
 
 }
 
@@ -37,32 +37,46 @@ def films():
 
 @app.route('/add_films', methods=['GET', 'POST'])
 def add_films():
-    if 'username' not in session:
-        return redirect(url_for('login'))
     if request.method == 'POST':
-        new_film = {
-            "name": request.form['name'],
-            "synopsis": request.form['synopsis'],
-            "score": int(request.form['score']),
-            "genre": request.form['genre'],
-            "release_date": request.form['release_date'],
-            "category": request.form['category'],
-        }
-        username = session['username']
-        users[username]['films'].append(new_film)
-        return redirect(url_for('films'))
+        name = request.form['name']
+        synopsis = request.form['synopsis']
+        rating = request.form['rating']
+        date = request.form['date']
+        genre = request.form['genre']
+        category = request.form['category']
+
+        if 'username' in session:
+            username = session['username']
+            for user in users:
+                if user['username'] == username:
+                    new_film = {
+                        'name': name,
+                        'synopsis': synopsis,
+                        'rating': rating,
+                        'date': date,
+                        'genre': genre,
+                        'category': category
+                    }
+        return redirect(url_for('home.html'))
     return render_template('add_films.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+
         if username in users:
             error = 'This username is in use. Try with another username.'
             return render_template('register.html', error=error)
-        users[username] = {'password': password, 'films': []}
-        flash('The username was registered successfully. Please, login.')
+        password = request.form['password']
+
+        new_user = {'username': username,
+                    'password': password,
+                    'films': []
+                    }
+
+        users.append(new_user)
+
         return redirect(url_for('login'))
     return render_template('register.html')
 
@@ -71,11 +85,13 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        if username in users and users[username]['password'] == password:
-            session['logged_in'] = True
-            session['username'] = username
-            return redirect(url_for('home'))
-        else:
+
+        for user in users:
+            if user['username'] == username and user['password'] == password:
+                session['logged_in'] = True
+                session['username'] = username
+                return redirect(url_for('home'))
+
             error = 'Invalid username or password'
             return render_template('login.html', error=error)
     return render_template('login.html')

@@ -2,20 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Films</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>My films</h1>
-<a href="{{ url_for('add_films') }}">Add new film</a>
-{% for category, title in categories.items() %}
-    <h2>{{ title }}</h2>
-    <ul>
-        {% for film in films[category] %}
-            <li>{{ film['name'] }} - Rating: {{ film['score'] }}</li>
+    <div class="container mt-5">
+        <h1 class="text-center">My Films</h1>
+        <div class="text-end mb-3">
+            <a href="{{ url_for('add_films') }}" class="btn btn-success">Add New Film</a>
+        </div>
+        {% for category, title in categories.items() %}
+            <h2 class="text-primary">{{ title }}</h2>
+            <ul class="list-group mb-4">
+                {% for film in films[category] %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ film['name'] }} - Rating: {{ film['score'] }}
+                    </li>
+                {% endfor %}
+            </ul>
         {% endfor %}
-    </ul>
-{% endfor %}
-<a href="{{ url_for('logout') }}">Log Out</a>
-
+        <div class="text-end mt-3">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger">Log Out</a>
+        </div>
+    </div>
 </body>
 </html>
