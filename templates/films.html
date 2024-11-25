@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+</head>
+<body>
+<h1>My films</h1>
+<a href="{{ url_for('add_films') }}">Add new film</a>
+{% for category, title in categories.items() %}
+    <h2>{{ title }}</h2>
+    <ul>
+        {% for film in films[category] %}
+            <li>{{ film['name'] }} - Rating: {{ film['score'] }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+<a href="{{ url_for('logout') }}">Log Out</a>
+
+</body>
+</html>

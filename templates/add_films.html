@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add_Films</title>
+</head>
+<body>
+
+    <form method="Post" action="{{ films }}">
+        <label for="name">Name: </label>
+        <input type="text" id="name" name="name" placeholder="Nombre de la serie" required>
+        <br><br>
+        <label for="synopsis">Synopsis: </label>
+        <textarea name="synopsis" placeholder="Sinopsis"></textarea>
+        <br><br>
+        <label for="score">Score: </label>
+        <input type="number" name="score" placeholder="Puntuación (0-10)" required>
+        <br><br>
+        <label for="genre">Genre: </label>
+        <input type="text" name="genre" placeholder="Género" required>
+        <br><br>
+        <label for="release_date">Release date: </label>
+        <input type="date" name="release_date" required>
+        <br><br>
+        <select name="category" required>
+            <option value="wish_list">Films that I want to watch</option>
+            <option value="watching">Films that I'm watching</option>
+            <option value="watched">Films already watched</option>
+        </select>
+        <br><br>
+        <button type="submit">Add Films</button>
+    </form>
+
+
+
+</body>
+</html>
